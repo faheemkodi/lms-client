@@ -1,0 +1,11 @@
+.jumbotron {
+  background-image: linear-gradient(to right, #efb000, #cc9100);
+}
+
+.react-player-div {
+  max-height: 225px;
+}
+
+.pointer {
+  cursor: pointer;
+}
