@@ -1,9 +1,19 @@
-.jumbotron {
-  background-image: linear-gradient(to right, #efb000, #cc9100);
+@font-face {
+  font-family: 'Poppins';
+  src: url('/fonts/Poppins/Poppins-Regular.ttf');
+  font-style: normal;
+  font-weight: 400;
+  font-display: fallback;
 }
 
-.react-player-div {
-  max-height: 225px;
+body {
+  font-family: Poppins, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+.jumbotron {
+  background-image: linear-gradient(to right, #efb000, #cc9100);
 }
 
 .pointer {

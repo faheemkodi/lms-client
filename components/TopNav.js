@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
-import { Menu } from 'antd';
+import { Row, Col, Menu } from 'antd';
 import Link from 'next/link';
 import {
   AppstoreOutlined,
+  MenuOutlined,
   CoffeeOutlined,
   LoginOutlined,
   LogoutOutlined,
@@ -38,7 +39,12 @@ const TopNav = () => {
   };
 
   return (
-    <Menu mode="horizontal" selectedKeys={[current]} className="mb-2">
+    <Menu
+      mode="horizontal"
+      selectedKeys={[current]}
+      className="mb-2"
+      overflowedIndicator={<MenuOutlined />}
+    >
       <Item
         key="/"
         onClick={(e) => setCurrent(e.key)}
