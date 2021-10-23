@@ -12,10 +12,53 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+a {
+  color: #cc9100 !important;
+}
+
+a:hover {
+  color: #efb000 !important;
+}
+
+.ant-menu {
+  background-color: #242424 !important;
+}
+
+.ant-menu-item-active {
+  background-color: transparent !important;
+}
+
+.ant-menu-item-selected {
+  background-color: transparent !important;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-decoration-style: solid;
+}
+
 .jumbotron {
   background-image: linear-gradient(to right, #efb000, #cc9100);
 }
 
 .pointer {
   cursor: pointer;
+}
+
+img.logo {
+  width: auto;
+  height: 40px;
+  display: none;
+}
+
+img.brandmark {
+  width: auto;
+  height: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+  img.logo {
+    display: block;
+  }
+  img.brandmark {
+    display: none;
+  }
 }

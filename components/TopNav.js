@@ -2,14 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Menu } from 'antd';
 import Link from 'next/link';
 import {
-  AppstoreOutlined,
-  MenuOutlined,
-  CoffeeOutlined,
   LoginOutlined,
-  LogoutOutlined,
+  MenuOutlined,
   UserAddOutlined,
-  CarryOutOutlined,
-  TeamOutlined,
 } from '@ant-design/icons';
 import { Context } from '../context';
 import axios from 'axios';
@@ -39,106 +34,116 @@ const TopNav = () => {
   };
 
   return (
-    <Menu
-      mode="horizontal"
-      selectedKeys={[current]}
-      className="mb-2"
-      overflowedIndicator={<MenuOutlined />}
-    >
-      <Item
-        key="/"
-        onClick={(e) => setCurrent(e.key)}
-        icon={<AppstoreOutlined />}
-      >
+    <Row justify="space-between" className="px-3 px-md-5 py-3 bg-dark">
+      {/* Logo */}
+      <Col md={6}>
         <Link href="/">
-          <a>Kengram</a>
+          <a>
+            <img src="/images/logo.svg" alt="logo" className="logo" />
+            <img src="/images/brandmark.svg" alt="logo" className="brandmark" />
+          </a>
         </Link>
-      </Item>
-
-      {user && user.role && user.role.includes('Instructor') ? (
-        <Item
-          key="/instructor/course/create"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<CarryOutOutlined />}
+      </Col>
+      {/* AntD Menu */}
+      <Col md={18}>
+        <Menu
+          theme="dark"
+          mode="horizontal"
+          selectedKeys={[current]}
+          overflowedIndicator={
+            <MenuOutlined style={{ fontSize: '30px', color: '#efb000' }} />
+          }
+          className="justify-content-end"
         >
-          <Link href="/instructor/course/create">
-            <a>Create Course</a>
-          </Link>
-        </Item>
-      ) : (
-        <Item
-          key="/user/become-instructor"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<TeamOutlined />}
-        >
-          <Link href="/user/become-instructor">
-            <a>Become Instructor</a>
-          </Link>
-        </Item>
-      )}
-
-      {user === null && (
-        <>
-          <Item
-            key="/login"
-            onClick={(e) => setCurrent(e.key)}
-            icon={<LoginOutlined />}
-          >
-            <Link href="/login">
-              <a>Login</a>
+          <Item key="/philosophy" onClick={(e) => setCurrent(e.key)}>
+            <Link href="/philosophy">
+              <a className="text-uppercase fw-bold">Philosophy</a>
             </Link>
           </Item>
 
-          <Item
-            key="/register"
-            onClick={(e) => setCurrent(e.key)}
-            icon={<UserAddOutlined />}
-          >
-            <Link href="/register">
-              <a>Register</a>
+          <Item key="/about" onClick={(e) => setCurrent(e.key)}>
+            <Link href="/about">
+              <a className="text-uppercase fw-bold">About</a>
             </Link>
           </Item>
-        </>
-      )}
 
-      {user && user.role && user.role.includes('Instructor') && (
-        <Item
-          key="/instructor"
-          onClick={(e) => setCurrent(e.key)}
-          icon={<TeamOutlined />}
-          className="ms-auto"
-        >
-          <Link href="/instructor">
-            <a>Instructor</a>
-          </Link>
-        </Item>
-      )}
-
-      {user !== null && (
-        <SubMenu
-          key="/submenu"
-          icon={<CoffeeOutlined />}
-          title={user && user.name}
-          className="float-end"
-        >
-          <ItemGroup>
-            <Item key="/user" className="ms-auto">
-              <Link href="/user">
-                <a>Dashboard</a>
+          {user && user.role && user.role.includes('Instructor') ? (
+            <Item
+              key="/instructor/course/create"
+              onClick={(e) => setCurrent(e.key)}
+            >
+              <Link href="/instructor/course/create">
+                <a className="text-uppercase fw-bold">Create Course</a>
               </Link>
             </Item>
+          ) : (
             <Item
-              key="/logout"
-              onClick={logout}
-              icon={<LogoutOutlined />}
-              className="ms-auto"
+              key="/user/become-instructor"
+              onClick={(e) => setCurrent(e.key)}
             >
-              Logout
+              <Link href="/user/become-instructor">
+                <a className="text-uppercase fw-bold">Teach</a>
+              </Link>
             </Item>
-          </ItemGroup>
-        </SubMenu>
-      )}
-    </Menu>
+          )}
+
+          {user === null && (
+            <>
+              <Item
+                key="/login"
+                onClick={(e) => setCurrent(e.key)}
+                icon={<LoginOutlined style={{ fontSize: '20px' }} />}
+              >
+                <Link href="/login">
+                  <a className="text-uppercase fw-bold">Login</a>
+                </Link>
+              </Item>
+
+              <Item
+                key="/register"
+                onClick={(e) => setCurrent(e.key)}
+                icon={<UserAddOutlined style={{ fontSize: '20px' }} />}
+              >
+                <Link href="/register">
+                  <a className="text-uppercase fw-bold">Register</a>
+                </Link>
+              </Item>
+            </>
+          )}
+
+          {user && user.role && user.role.includes('Instructor') && (
+            <Item key="/instructor" onClick={(e) => setCurrent(e.key)}>
+              <Link href="/instructor">
+                <a className="text-uppercase fw-bold">Instructor</a>
+              </Link>
+            </Item>
+          )}
+
+          {user !== null && (
+            <SubMenu
+              key="/submenu"
+              title={user && user.name}
+              className="float-end"
+            >
+              <ItemGroup>
+                <Item key="/user" className="ms-auto">
+                  <Link href="/user">
+                    <a className="text-uppercase fw-bold">Dashboard</a>
+                  </Link>
+                </Item>
+                <Item
+                  key="/logout"
+                  onClick={logout}
+                  className="text-uppercase fw-bold ms-auto"
+                >
+                  Logout
+                </Item>
+              </ItemGroup>
+            </SubMenu>
+          )}
+        </Menu>
+      </Col>
+    </Row>
   );
 };
 

@@ -6,7 +6,6 @@ module.exports = withAntdLess({
   // optional
   modifyVars: {
     '@primary-color': '#efb000', // primary color for all components
-    '@link-color': '#0f52ba', // link color
     '@success-color': '#50c878', // success state color
     '@warning-color': '#e4d00a', // warning state color
     '@error-color': '#e4d00a', // error state color
