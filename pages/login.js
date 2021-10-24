@@ -20,7 +20,7 @@ const Login = () => {
 
   useEffect(() => {
     if (user !== null) {
-      router.push('/');
+      router.push('/login');
     }
   }, [user]);
 
@@ -40,8 +40,8 @@ const Login = () => {
       });
       window.localStorage.setItem('user', JSON.stringify(data));
       // Redirect
+      setLoading(false);
       router.push('/user');
-      // setLoading(false);
     } catch (err) {
       toast.error(err.response.data);
       setLoading(false);

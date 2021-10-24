@@ -9,13 +9,16 @@ const InstructorIndex = () => {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
+    let mounted = true;
+    const loadCourses = async () => {
+      const { data } = await axios.get('/api/instructor-courses');
+      if (mounted) setCourses(data);
+    };
     loadCourses();
+    return () => {
+      mounted = false;
+    };
   }, []);
-
-  const loadCourses = async () => {
-    const { data } = await axios.get('/api/instructor-courses');
-    setCourses(data);
-  };
 
   const myStyle = { marginTop: '-15px', fontSize: '10px' };
 

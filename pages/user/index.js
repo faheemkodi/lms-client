@@ -14,20 +14,23 @@ const UserIndex = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+    const loadCourses = async () => {
+      try {
+        setLoading(true);
+        const { data } = await axios.get('/api/user-courses');
+        if (mounted) setCourses(data);
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
+    };
     loadCourses();
+    return () => {
+      mounted = false;
+    };
   }, []);
-
-  const loadCourses = async () => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get('/api/user-courses');
-      setCourses(data);
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-    }
-  };
 
   return (
     <UserRoute>

@@ -34,7 +34,7 @@ const BecomeInstructor = () => {
   };
 
   return (
-    <>
+    <UserRoute>
       <h1 className="jumbotron text-center text-light p-5 mb-4">
         Become Instructor
       </h1>
@@ -71,7 +71,7 @@ const BecomeInstructor = () => {
           </div>
         </div>
       </div>
-    </>
+    </UserRoute>
   );
 };
 

@@ -2,9 +2,13 @@ import { useState, useEffect, useContext } from 'react';
 import { Row, Col, Menu } from 'antd';
 import Link from 'next/link';
 import {
-  LoginOutlined,
   MenuOutlined,
+  ReadOutlined,
+  VideoCameraAddOutlined,
   UserAddOutlined,
+  CrownOutlined,
+  DollarOutlined,
+  CrownFilled,
 } from '@ant-design/icons';
 import { Context } from '../context';
 import axios from 'axios';
@@ -34,9 +38,9 @@ const TopNav = () => {
   };
 
   return (
-    <Row justify="space-between" className="px-3 px-md-5 py-3 bg-dark">
+    <Row justify="space-between" className="ps-3 px-md-5 py-3 bg-dark">
       {/* Logo */}
-      <Col md={6}>
+      <Col xs={4} md={6}>
         <Link href="/">
           <a>
             <img src="/images/logo.svg" alt="logo" className="logo" />
@@ -45,13 +49,18 @@ const TopNav = () => {
         </Link>
       </Col>
       {/* AntD Menu */}
-      <Col md={18}>
+      <Col xs={4} md={18}>
         <Menu
           theme="dark"
           mode="horizontal"
           selectedKeys={[current]}
           overflowedIndicator={
-            <MenuOutlined style={{ fontSize: '30px', color: '#efb000' }} />
+            <MenuOutlined
+              style={{
+                fontSize: '30px',
+                color: '#efb000',
+              }}
+            />
           }
           className="justify-content-end"
         >
@@ -67,32 +76,18 @@ const TopNav = () => {
             </Link>
           </Item>
 
-          {user && user.role && user.role.includes('Instructor') ? (
-            <Item
-              key="/instructor/course/create"
-              onClick={(e) => setCurrent(e.key)}
-            >
-              <Link href="/instructor/course/create">
-                <a className="text-uppercase fw-bold">Create Course</a>
-              </Link>
-            </Item>
-          ) : (
-            <Item
-              key="/user/become-instructor"
-              onClick={(e) => setCurrent(e.key)}
-            >
-              <Link href="/user/become-instructor">
-                <a className="text-uppercase fw-bold">Teach</a>
-              </Link>
-            </Item>
-          )}
+          <Item key="/contact" onClick={(e) => setCurrent(e.key)}>
+            <Link href="/contact">
+              <a className="text-uppercase fw-bold">Contact</a>
+            </Link>
+          </Item>
 
           {user === null && (
             <>
               <Item
                 key="/login"
                 onClick={(e) => setCurrent(e.key)}
-                icon={<LoginOutlined style={{ fontSize: '20px' }} />}
+                icon={<CrownOutlined style={{ fontSize: '20px' }} />}
               >
                 <Link href="/login">
                   <a className="text-uppercase fw-bold">Login</a>
@@ -111,29 +106,57 @@ const TopNav = () => {
             </>
           )}
 
-          {user && user.role && user.role.includes('Instructor') && (
-            <Item key="/instructor" onClick={(e) => setCurrent(e.key)}>
-              <Link href="/instructor">
-                <a className="text-uppercase fw-bold">Instructor</a>
-              </Link>
-            </Item>
-          )}
-
           {user !== null && (
             <SubMenu
               key="/submenu"
               title={user && user.name}
-              className="float-end"
+              icon={
+                <CrownFilled style={{ fontSize: '20px', color: '#cc9100' }} />
+              }
+              className="text-uppercase fw-bold float-end"
             >
               <ItemGroup>
-                <Item key="/user" className="ms-auto">
+                <Item
+                  key="/user"
+                  onClick={(e) => setCurrent(e.key)}
+                  icon={<ReadOutlined style={{ fontSize: '20px' }} />}
+                  className=""
+                >
                   <Link href="/user">
                     <a className="text-uppercase fw-bold">Dashboard</a>
                   </Link>
                 </Item>
+                {user && user.role && user.role.includes('Instructor') ? (
+                  <Item
+                    key="/instructor"
+                    onClick={(e) => setCurrent(e.key)}
+                    icon={
+                      <VideoCameraAddOutlined style={{ fontSize: '20px' }} />
+                    }
+                  >
+                    <Link href="/instructor">
+                      <a className="text-uppercase fw-bold">Instructor</a>
+                    </Link>
+                  </Item>
+                ) : (
+                  <Item
+                    key="/user/become-instructor"
+                    onClick={(e) => setCurrent(e.key)}
+                    icon={<DollarOutlined style={{ fontSize: '20px' }} />}
+                  >
+                    <Link href="/user/become-instructor">
+                      <a className="text-uppercase fw-bold">Teach & Earn</a>
+                    </Link>
+                  </Item>
+                )}
                 <Item
                   key="/logout"
                   onClick={logout}
+                  icon={
+                    <CrownOutlined
+                      style={{ fontSize: '20px', color: '#cc9100' }}
+                    />
+                  }
                   className="text-uppercase fw-bold ms-auto"
                 >
                   Logout

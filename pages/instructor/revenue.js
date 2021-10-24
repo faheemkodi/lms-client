@@ -14,13 +14,16 @@ const InstructorRevenue = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    let mounted = true;
+    const sendBalanceRequest = async () => {
+      const { data } = await axios.get('/api/instructor/balance');
+      if (mounted) setBalance(data);
+    };
     sendBalanceRequest();
+    return () => {
+      mounted = false;
+    };
   }, []);
-
-  const sendBalanceRequest = async () => {
-    const { data } = await axios.get('/api/instructor/balance');
-    setBalance(data);
-  };
 
   // const handlePayoutSettings = async () => {
   //   try {
@@ -46,8 +49,8 @@ const InstructorRevenue = () => {
             <hr />
             <h4>
               Pending Balance{' '}
-              {balance.pending &&
-                balance.pending.map((bp, i) => (
+              {balance?.pending &&
+                balance?.pending.map((bp, i) => (
                   <span key={i} className="float-end">
                     {stripeCurrencyFormatter(bp)}
                   </span>

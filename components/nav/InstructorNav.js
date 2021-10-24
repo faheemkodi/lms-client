@@ -8,7 +8,7 @@ const InstructorNav = () => {
   }, [process.browser && window.location.pathname]);
 
   return (
-    <div className="nav flex-column nav-pills">
+    <div className="d-flex flex-row flex-md-col nav nav-pills py-3 justify-content-between text-uppercase fw-bold">
       <Link href="/instructor">
         <a className={`nav-link ${current === '/instructor' && 'active'}`}>
           Dashboard
