@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../context';
 import UserRoute from '../../components/routes/UserRoute';
 import axios from 'axios';
-import { Avatar } from 'antd';
+import { Avatar, Row, Col } from 'antd';
 import { SyncOutlined, PlayCircleOutlined } from '@ant-design/icons';
 import Link from 'next/link';
 
@@ -40,52 +40,49 @@ const UserIndex = () => {
           className="d-flex justify-content-center display-1 text-danger p-5"
         />
       )}
-      <h1 className="jumbotron p-5 mb-4 text-center text-light">
-        User Dashboard
-      </h1>
+      <Row className="jumbotron">
+        <h1 className="text-center text-light">Courses Dashboard</h1>
+      </Row>
+
       {/* Show course list */}
       {courses &&
         courses.map((course) => (
-          <div key={course._id} className="row media pt-2 pb-1">
-            <div className="col-1">
+          <Row key={course._id} justify="space-around" align="middle">
+            <Col>
               <Avatar
                 size={80}
                 shape="square"
                 src={course.image ? course.image.Location : '/course.png'}
               />
-            </div>
+            </Col>
 
-            <div className="col media-body pl-2">
-              <div className="row">
-                <div className="col">
-                  <Link
-                    href={`/user/course/${course.slug}`}
-                    className="pointer"
-                  >
-                    <a>
-                      <h5 className="mt-2 text-primary">{course.name}</h5>
-                    </a>
-                  </Link>
-                  <p style={{ marginTop: '-10px' }}>
-                    {course.lessons.length} Lessons
-                  </p>
-                  <p
-                    className="text-muted"
-                    style={{ marginTop: '-15px', fontSize: '12px' }}
-                  >
-                    By {course.instructor.name}
-                  </p>
-                </div>
-                <div className="col-md-3 mt-3 text-center">
-                  <Link href={`/user/course/${course.slug}`}>
-                    <a>
-                      <PlayCircleOutlined className="h2 pointer text-primary" />
-                    </a>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
+            <Col md={16}>
+              <Link href={`/user/course/${course.slug}`} className="pointer">
+                <a>
+                  <h5 className="mt-2 text-primary">{course.name}</h5>
+                </a>
+              </Link>
+              <p style={{ marginTop: '-10px' }}>
+                {course.lessons.length} Lessons
+              </p>
+              <p
+                className="text-muted"
+                style={{ marginTop: '-15px', fontSize: '12px' }}
+              >
+                By {course.instructor.name}
+              </p>
+            </Col>
+            <Col>
+              <Link href={`/user/course/${course.slug}`}>
+                <a>
+                  <PlayCircleOutlined
+                    style={{ fontSize: '50px' }}
+                    className="h1 pointer text-primary"
+                  />
+                </a>
+              </Link>
+            </Col>
+          </Row>
         ))}
     </UserRoute>
   );

@@ -57,10 +57,11 @@ const BecomeInstructor = () => {
                 icon={loading ? <LoadingOutlined /> : <SettingOutlined />}
                 size="large"
                 onClick={becomeInstructor}
-                disabled={
-                  (user && user.role && user.role.includes('Instructor')) ||
-                  loading
-                }
+                disabled
+                // disabled={
+                //   (user && user.role && user.role.includes('Instructor')) ||
+                //   loading
+                // }
               >
                 {loading ? 'Processing...' : 'Payout Setup'}
               </Button>

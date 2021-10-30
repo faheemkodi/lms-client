@@ -85,19 +85,20 @@ const SingleCourse = () => {
   return (
     <StudentRoute>
       <div className="row">
-        <div style={{ maxWidth: 320 }}>
+        <div className="donly" style={{ maxWidth: 320 }}>
           <Button
             onClick={() => setCollapsed(!collapsed)}
-            className="text-primary mt-1 btn mb-2"
+            size="large"
+            className="text-primary fw-bold text-uppercase bg-dark mt-1 mb-5"
           >
             {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
-            {!collapsed && 'Lessons'}
+            {!collapsed && 'Daily Lessons'}
           </Button>
           <Menu
             mode="inline"
             defaultSelectedKeys={[clicked]}
             inlineCollapsed={collapsed}
-            style={{ height: '80vh', overflow: 'scroll' }}
+            style={{ height: '100vh', overflow: 'scroll' }}
           >
             {course.lessons.map((lesson, index) => (
               <Item
@@ -127,18 +128,24 @@ const SingleCourse = () => {
               <div className="col alert alert-primary">
                 <b>{course.lessons[clicked].title.substring(0, 30)}</b>
                 {completedLessons.includes(course.lessons[clicked]._id) ? (
-                  <span className="float-end pointer" onClick={markIncomplete}>
+                  <span
+                    className="float-end pointer fw-bold"
+                    onClick={markIncomplete}
+                  >
                     Mark As Incomplete
                   </span>
                 ) : (
-                  <span className="float-end pointer" onClick={markCompleted}>
+                  <span
+                    className="float-end pointer fw-bold"
+                    onClick={markCompleted}
+                  >
                     Mark As Completed
                   </span>
                 )}
               </div>
               {course.lessons[clicked].video &&
                 course.lessons[clicked].video.Location && (
-                  <>
+                  <div className="mb-3">
                     <div className="wrapper">
                       <ReactPlayer
                         config={{
@@ -153,7 +160,7 @@ const SingleCourse = () => {
                         onEnded={() => markCompleted()}
                       />
                     </div>
-                  </>
+                  </div>
                 )}
               <ReactMarkdown
                 children={course.lessons[clicked].content}
@@ -168,6 +175,42 @@ const SingleCourse = () => {
               </div>
             </div>
           )}
+        </div>
+        <div className="monly">
+          <Button
+            onClick={() => setCollapsed(!collapsed)}
+            className="text-primary fw-bold text-uppercase bg-dark mt-1 btn mb-2"
+          >
+            {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined)}
+            {!collapsed && 'Daily Lessons'}
+          </Button>
+          <Menu
+            mode="inline"
+            defaultSelectedKeys={[clicked]}
+            inlineCollapsed={collapsed}
+            style={{ height: '80vh', overflow: 'scroll' }}
+          >
+            {course.lessons.map((lesson, index) => (
+              <Item
+                key={index}
+                onClick={() => setClicked(index)}
+                icon={<Avatar>{index + 1}</Avatar>}
+              >
+                {lesson.title.substring(0, 30)}{' '}
+                {completedLessons.includes(lesson._id) ? (
+                  <CheckCircleFilled
+                    className="float-end text-primary ml-2"
+                    style={{ marginTop: '13px' }}
+                  />
+                ) : (
+                  <MinusCircleFilled
+                    className="float-end text-danger ml-2"
+                    style={{ marginTop: '13px' }}
+                  />
+                )}
+              </Item>
+            ))}
+          </Menu>
         </div>
       </div>
     </StudentRoute>

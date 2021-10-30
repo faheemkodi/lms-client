@@ -36,7 +36,7 @@ const StudentRoute = ({ children }) => {
           className="d-flex justify-content-center display-1 text-secondary p-5"
         />
       ) : (
-        <div className="container-fluid">{children}</div>
+        <div className="container-fluid my-4">{children}</div>
       )}
     </>
   );

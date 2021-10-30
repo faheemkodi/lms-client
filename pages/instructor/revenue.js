@@ -13,17 +13,17 @@ const InstructorRevenue = () => {
   const [balance, setBalance] = useState({ pending: [] });
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    let mounted = true;
-    const sendBalanceRequest = async () => {
-      const { data } = await axios.get('/api/instructor/balance');
-      if (mounted) setBalance(data);
-    };
-    sendBalanceRequest();
-    return () => {
-      mounted = false;
-    };
-  }, []);
+  // useEffect(() => {
+  //   let mounted = true;
+  //   const sendBalanceRequest = async () => {
+  //     const { data } = await axios.get('/api/instructor/balance');
+  //     if (mounted) setBalance(data);
+  //   };
+  //   sendBalanceRequest();
+  //   return () => {
+  //     mounted = false;
+  //   };
+  // }, []);
 
   // const handlePayoutSettings = async () => {
   //   try {
@@ -39,7 +39,7 @@ const InstructorRevenue = () => {
 
   return (
     <InstructorRoute>
-      <div className="container">
+      {/* <div className="container">
         <div className="row pt-2">
           <div className="col-md-8 offset-md-2 bg-light p-5">
             <h2>
@@ -58,8 +58,8 @@ const InstructorRevenue = () => {
             </h4>
             <small>This week's payout</small>
             <hr />
-            {/* {JSON.stringify(balance, null, 4)} */}
-            {/* <h4>
+
+            <h4>
               Payouts
               {!loading ? (
                 <SettingOutlined
@@ -69,11 +69,11 @@ const InstructorRevenue = () => {
               ) : (
                 <SyncOutlined spin className="float-end pointer" />
               )}
-            </h4> */}
+            </h4>
             <small>Stripe login link below:</small>
           </div>
         </div>
-      </div>
+      </div> */}
     </InstructorRoute>
   );
 };

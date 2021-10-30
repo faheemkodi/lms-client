@@ -130,6 +130,7 @@ const CourseCreateForm = ({
                 loading={values.loading}
                 type="primary"
                 size="large"
+                block
                 shape="round"
               >
                 {values.loading ? 'Saving...' : 'Save & Continue'}

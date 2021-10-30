@@ -18,9 +18,10 @@ const Login = () => {
   // Router
   const router = useRouter();
 
+  // Restrict access to login page to logged in user
   useEffect(() => {
     if (user !== null) {
-      router.push('/login');
+      router.push('/user');
     }
   }, [user]);
 
@@ -40,7 +41,6 @@ const Login = () => {
       });
       window.localStorage.setItem('user', JSON.stringify(data));
       // Redirect
-      setLoading(false);
       router.push('/user');
     } catch (err) {
       toast.error(err.response.data);
@@ -49,9 +49,14 @@ const Login = () => {
   };
 
   return (
-    <>
-      <h1 className="jumbotron p-5 mb-4 text-center text-light">Login</h1>
-      <div className="container col-md-4 offset-md-4 pb-5">
+    <div className="auth-hero">
+      <div className="jumbotron glow text-center">
+        <h1 className="text-light fw-bold">Welcome back !</h1>
+        <p className="lead text-dark text-center">
+          Let's learn how to learn <em className="text-light">anything.</em>
+        </p>
+      </div>
+      <div className="container col-10 col-md-6 col-xl-4 pt-4 pb-5">
         <form onSubmit={handleSubmit}>
           <input
             type="email"
@@ -73,27 +78,27 @@ const Login = () => {
 
           <button
             type="submit"
-            className="btn col-12 btn-secondary"
+            className="btn col-12 btn-secondary glow text-light text-uppercase fw-bold"
             disabled={!email || !password || loading}
           >
-            {loading ? <SyncOutlined spin /> : 'Submit'}
+            {loading ? <SyncOutlined spin /> : 'Login'}
           </button>
         </form>
 
-        <p className="text-center pt-3">
+        <p className="text-center text-light lead pt-4">
           Not yet registered?{' '}
           <Link href="/register">
             <a>Register Now</a>
           </Link>
         </p>
 
-        <p className="text-center">
+        <p className="text-center text-light lead pb-4">
           <Link href="/forgot-password">
-            <a className="text-danger">Forgot password?</a>
+            <a>Forgot your password?</a>
           </Link>
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

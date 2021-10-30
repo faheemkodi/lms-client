@@ -48,11 +48,15 @@ const Register = () => {
   };
 
   return (
-    <>
-      <h1 className="jumbotron p-5 mb-4 text-center text-light">
-        Register For Kengram
-      </h1>
-      <div className="container col-md-4 offset-md-4 pb-5">
+    <div className="auth-hero">
+      <div className="jumbotron glow text-center">
+        <h1 className="text-light fw-bold">Hello, new learner!</h1>
+        <p className="lead text-dark text-center">
+          Join Kengram and transform your life by learning how to learn{' '}
+          <em className="text-light">anything.</em>
+        </p>
+      </div>
+      <div className="container col-10 col-md-6 col-xl-4 pt-4 pb-5">
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -83,21 +87,21 @@ const Register = () => {
 
           <button
             type="submit"
-            className="btn col-12 btn-secondary"
+            className="btn col-12 btn-secondary glow text-light text-uppercase fw-bold"
             disabled={!name || !email || !password || loading}
           >
-            {loading ? <SyncOutlined spin /> : 'Submit'}
+            {loading ? <SyncOutlined spin /> : 'Join The Tribe'}
           </button>
         </form>
 
-        <p className="text-center p-3">
+        <p className="text-center text-light lead py-4">
           Already registered?{' '}
           <Link href="/login">
             <a>Login</a>
           </Link>
         </p>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import InstructorRoute from '../../../../components/routes/InstructorRoute';
 import axios from 'axios';
-import { Avatar, Tooltip, Button, Modal, List } from 'antd';
+import { Avatar, Tooltip, Button, Modal, List, Row, Col } from 'antd';
 import {
   EditOutlined,
   CheckOutlined,
@@ -163,122 +163,116 @@ const CourseView = () => {
 
   return (
     <InstructorRoute>
-      <div className="container-fluid pt-3">
-        {/* <pre>{JSON.stringify(course, null, 4)}</pre> */}
-        {course && (
-          <div className="container-fluid pt-1">
-            <div className="media row">
-              <div className="col-1">
-                <Avatar
-                  size={80}
-                  src={course.image ? course.image.Location : '/course.png'}
-                />
-              </div>
-              <div className="media-body pl-2 col-10">
-                <div className="row">
-                  <div className="col">
-                    <h5 className="mt-2 text-primary">{course.name}</h5>
-                    <p style={{ marginTop: '-10px' }}>
-                      {course.lessons && course.lessons.length} Lessons
-                    </p>
-                    <p style={{ marginTop: '-15px', fontSize: '10px' }}>
-                      {course.category}
-                    </p>
-                  </div>
-                  <div className="d-flex col-1 pt-4">
-                    <Tooltip title={`${students} Enrolled`}>
-                      <UserSwitchOutlined className="h5 pointer text-info mx-4" />
-                    </Tooltip>
-                    <Tooltip title="Edit">
-                      <UserSwitchOutlined
-                        onClick={() =>
-                          router.push(`/instructor/course/edit/${slug}`)
-                        }
-                        className="h5 pointer text-warning mx-4"
-                      />
-                    </Tooltip>
-                    {course.lessons && course.lessons.length < 5 ? (
-                      <Tooltip title="Minimum 5 lessons required.">
-                        <QuestionOutlined className="h5 pointer text-danger mx-4" />
-                      </Tooltip>
-                    ) : course.published ? (
-                      <Tooltip title="Unpublish">
-                        <CloseOutlined
-                          onClick={(e) => handleUnpublish(e, course._id)}
-                          className="h5 pointer text-danger mx-4"
-                        />
-                      </Tooltip>
-                    ) : (
-                      <Tooltip title="Publish">
-                        <CheckOutlined
-                          onClick={(e) => handlePublish(e, course._id)}
-                          className="h5 pointer text-success mx-4"
-                        />
-                      </Tooltip>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="col">
-                <ReactMarkdown children={course.description} />
-              </div>
-            </div>
-            <div className="row">
-              <Button
-                onClick={() => setVisible(true)}
-                className="col-md-6 offset-md-3 text-center"
-                type="primary"
-                shape="round"
-                icon={<UploadOutlined />}
-                size="large"
-              >
-                Add Lesson
-              </Button>
-            </div>
-            <br />
-            <Modal
-              title="+ Add Lesson"
-              centered
-              visible={visible}
-              onCancel={() => setVisible(false)}
-              footer={null}
-            >
-              <AddLessonForm
-                values={values}
-                setValues={setValues}
-                handleAddLesson={handleAddLesson}
-                uploading={uploading}
-                uploadButtonText={uploadButtonText}
-                handleVideo={handleVideo}
-                progress={progress}
-                handleVideoRemove={handleVideoRemove}
+      {course && (
+        <div className="pt-3">
+          <Row align="middle">
+            <Col xs={6} md={4}>
+              <Avatar
+                size={60}
+                shape="square"
+                src={course.image ? course.image.Location : '/course.png'}
               />
-            </Modal>
+            </Col>
+            <Col xs={10} md={16}>
+              <h5 className="mt-2 text-primary">{course.name}</h5>
+              <p style={{ marginTop: '-10px' }}>
+                {course.lessons && course.lessons.length} Lessons
+              </p>
+              <p style={{ marginTop: '-15px', fontSize: '10px' }}>
+                {course.category}
+              </p>
+            </Col>
+            {/* Tooltips */}
+            <Col xs={8} md={4}>
+              <Tooltip title={`${students} Enrolled`}>
+                <UserSwitchOutlined className="h5 pointer text-info mx-1" />
+              </Tooltip>
 
-            <div className="row pb-5">
-              <div className="col lesson-list">
-                <h4>
-                  {course && course.lessons && course.lessons.length} Lessons
-                </h4>
-                <List
-                  itemLayout="horizontal"
-                  dataSource={course && course.lessons}
-                  renderItem={(item, index) => (
-                    <Item key={index}>
-                      <Item.Meta
-                        avatar={<Avatar>{index + 1}</Avatar>}
-                        title={item.title}
-                      ></Item.Meta>
-                    </Item>
-                  )}
-                ></List>
-              </div>
+              <Tooltip title="Edit">
+                <EditOutlined
+                  onClick={() => router.push(`/instructor/course/edit/${slug}`)}
+                  className="h5 pointer text-warning mx-1"
+                />
+              </Tooltip>
+
+              {course.lessons && course.lessons.length < 5 ? (
+                <Tooltip title="Minimum 5 lessons required.">
+                  <QuestionOutlined className="h5 pointer text-danger mx-1" />
+                </Tooltip>
+              ) : course.published ? (
+                <Tooltip title="Unpublish">
+                  <CloseOutlined
+                    onClick={(e) => handleUnpublish(e, course._id)}
+                    className="h5 pointer text-danger mx-1"
+                  />
+                </Tooltip>
+              ) : (
+                <Tooltip title="Publish">
+                  <CheckOutlined
+                    onClick={(e) => handlePublish(e, course._id)}
+                    className="h5 pointer text-success mx-1"
+                  />
+                </Tooltip>
+              )}
+            </Col>
+          </Row>
+          <Row className="my-5">
+            <ReactMarkdown children={course.description} />
+          </Row>
+          <Row className="mb-5">
+            <Button
+              onClick={() => setVisible(true)}
+              className="text-center"
+              type="primary"
+              shape="round"
+              icon={<UploadOutlined />}
+              size="large"
+              block
+            >
+              Add Lesson
+            </Button>
+          </Row>
+          <br />
+          <Modal
+            title="+ Add Lesson"
+            centered
+            visible={visible}
+            onCancel={() => setVisible(false)}
+            footer={null}
+          >
+            <AddLessonForm
+              values={values}
+              setValues={setValues}
+              handleAddLesson={handleAddLesson}
+              uploading={uploading}
+              uploadButtonText={uploadButtonText}
+              handleVideo={handleVideo}
+              progress={progress}
+              handleVideoRemove={handleVideoRemove}
+            />
+          </Modal>
+
+          <Row className="pb-5">
+            <div className="col lesson-list">
+              <h4>
+                {course && course.lessons && course.lessons.length} Lessons
+              </h4>
+              <List
+                itemLayout="horizontal"
+                dataSource={course && course.lessons}
+                renderItem={(item, index) => (
+                  <Item key={index}>
+                    <Item.Meta
+                      avatar={<Avatar>{index + 1}</Avatar>}
+                      title={item.title}
+                    ></Item.Meta>
+                  </Item>
+                )}
+              ></List>
             </div>
-          </div>
-        )}
-      </div>
+          </Row>
+        </div>
+      )}
     </InstructorRoute>
   );
 };

@@ -18,11 +18,11 @@ module.exports = withAntdLess({
     '@border-color-base': '#d4d4d4', // major border color
   },
   // optional
-  lessVarsFilePath: './src/styles/variables.less',
+  // lessVarsFilePath: './src/styles/variables.less',
   // optional
-  lessVarsFilePathAppendToEndOfContent: false,
+  // lessVarsFilePathAppendToEndOfContent: false,
   // optional https://github.com/webpack-contrib/css-loader#object
-  cssLoaderOptions: {},
+  // cssLoaderOptions: {},
 
   // Other Config Here...
 

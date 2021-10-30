@@ -30,23 +30,21 @@ const InstructorRoute = ({ children }) => {
   }, []);
 
   return (
-    <>
+    <div className="container-fluid mt-2">
       {!ok ? (
         <SyncOutlined
           spin
           className="d-flex justify-content-center display-1 text-secondary p-5"
         />
       ) : (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-2">
-              <InstructorNav />
-            </div>
-            <div className="col-md-10">{children}</div>
+        <div className="row">
+          <div className="col-md-3">
+            <InstructorNav />
           </div>
+          <div className="col-md-9">{children}</div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

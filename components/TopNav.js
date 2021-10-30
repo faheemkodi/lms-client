@@ -38,9 +38,9 @@ const TopNav = () => {
   };
 
   return (
-    <Row justify="space-between" className="ps-3 px-md-5 py-3 bg-dark">
+    <Row justify="space-between" className="ps-3 py-3 bg-dark">
       {/* Logo */}
-      <Col xs={4} md={6}>
+      <Col span={4}>
         <Link href="/">
           <a>
             <img src="/images/logo.svg" alt="logo" className="logo" />
@@ -49,7 +49,7 @@ const TopNav = () => {
         </Link>
       </Col>
       {/* AntD Menu */}
-      <Col xs={4} md={18}>
+      <Col xs={4} md={20}>
         <Menu
           theme="dark"
           mode="horizontal"
